@@ -4,15 +4,12 @@ const express = require('express');
 const app = express();
 
 /* Middleware*/
-//Configure the app to use Express for these:
+//Configure the app to use Express:
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-// const cors = require('cors');
-// const { constants } = require('buffer');
-// app.use(cors());
+const fs = require('fs');
 
 /*Global Variables*/
-//TODO: create a scheduleData object which consists of an array of {'time': '', 'names': []} objects. Then, when a name is submitted, iterate through the array until the item.time matches, and push the new name to the item.names.
 let scheduleData = {
     'date': '2021-05-19',
     'prayerSlots': [
@@ -43,12 +40,13 @@ app.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })
 
+//Get route for the data
 app.get('/retrieve', sendData);
     function sendData (request, response) {
         response.send(scheduleData);
     }
 
-/*Add Route*/
+//Post route for adding a name and returning the full data
 app.post('/add', addData);
     function addData (request, response) {
         for (i=0; i<scheduleData.prayerSlots.length; i++) {            
@@ -58,4 +56,12 @@ app.post('/add', addData);
             }
         }
         response.send(scheduleData);
+        const jsonContent = JSON.stringify(scheduleData);
+        fs.writeFile("schedule.json", jsonContent, 'utf8', (err)=> {
+            if (err) {
+                console.log ("Error writing to file:", err);
+            } else {
+                console.log("File saved.");
+            }
+        })
     }

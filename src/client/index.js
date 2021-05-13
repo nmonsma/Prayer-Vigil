@@ -60,18 +60,22 @@ const createSchedule = async ()=> {
 function saveSchedule () {
     let timeIndex = '';
     const radioButtons = document.getElementsByName('time'); 
+    
+    //Figure out which radio button is checked and record its value in timeIndex    
     for (i=0; i<radioButtons.length; i++) {
         if (radioButtons[i].checked) {
             timeIndex = radioButtons[i].value;
         }
     };
     
+    //Create the object that whill be sent to the server
     const data = {
         'firstName': `${document.getElementById('first-name').value}`,
         'lastInitial': `${document.getElementById('last-initial').value.substring(0,1)}`,
         'index': `${timeIndex}`
     };
 
+    //Send the object to the server, then iterate through the object that is returned to update the names on teh signup
     postData ('/add', data)
     .then ((response)=> {
         for (i=0; i<response.prayerSlots.length; i++) {
@@ -80,5 +84,8 @@ function saveSchedule () {
     });
 }
 
+//Attach the event listener to the button
 document.getElementById('submit').addEventListener('click', saveSchedule);
+
+//Get the object from the server and update the client-side schedule display
 createSchedule();
