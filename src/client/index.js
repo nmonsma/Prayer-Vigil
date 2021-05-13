@@ -31,6 +31,7 @@ const createSchedule = async ()=> {
             //Create the radio button
             const radioButton = document.createElement('input');
             radioButton.setAttribute('type', 'radio');
+            radioButton.classList.add('radio-button');
             radioButton.setAttribute('id', `${responseData.prayerSlots[i].index}`);
             radioButton.setAttribute('name', 'time');
             radioButton.setAttribute('value', `${responseData.prayerSlots[i].index}`);
