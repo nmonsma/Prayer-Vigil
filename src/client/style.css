@@ -1,0 +1,24 @@
+#radio-buttons {
+    display: grid;
+    grid-template-columns: 20px 150px;
+}
+
+#last-initial {
+    width: 15px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+#radio-buttons {
+    display: grid;
+    grid-template-columns: 20px 115px 1fr;
+}
+
+@media (min-width: 800px) {
+    main {
+        flex-direction: row;
+    }
+}
