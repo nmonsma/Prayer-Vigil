@@ -1,0 +1,23 @@
+{
+  "name": "prayer-vigil",
+  "version": "1.0.0",
+  "description": "Prayer Vigil App for Churches",
+  "main": "index.html",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nmonsma/Prayer-Vigil.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nmonsma/Prayer-Vigil/issues"
+  },
+  "homepage": "https://github.com/nmonsma/Prayer-Vigil#readme"
+}

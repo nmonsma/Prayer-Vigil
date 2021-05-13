@@ -33,11 +33,11 @@ const createSchedule = async ()=> {
             radioButton.setAttribute('type', 'radio');
             radioButton.setAttribute('id', `${responseData.prayerSlots[i].index}`);
             radioButton.setAttribute('name', 'time');
-            radioButton.setAttribute('value', `${responseData.prayerSlots[1].index}`);
+            radioButton.setAttribute('value', `${responseData.prayerSlots[i].index}`);
 
             //Create the radio button label
             const radioLabel = document.createElement('label');
-            radioLabel.setAttribute('for', `${responseData.prayerSlots[1].index}`);
+            radioLabel.setAttribute('for', `${responseData.prayerSlots[i].index}`);
             radioLabel.innerText = `${responseData.prayerSlots[i].time}`;
 
             //Create the Content for the Schedule
@@ -60,25 +60,19 @@ function saveSchedule () {
     let timeIndex = '';
     const radioButtons = document.getElementsByName('time'); 
     for (i=0; i<radioButtons.length; i++) {
-        console.log(i, radioButtons[i].checked)
         if (radioButtons[i].checked) {
             timeIndex = radioButtons[i].value;
         }
     };
-
-    console.log(timeIndex);
-       
+    
     const data = {
         'firstName': `${document.getElementById('first-name').value}`,
         'lastInitial': `${document.getElementById('last-initial').value.substring(0,1)}`,
         'index': `${timeIndex}`
     };
 
-    console.log(data);
-
     postData ('/add', data)
     .then ((response)=> {
-        console.log(response);
         for (i=0; i<response.prayerSlots.length; i++) {
             document.getElementById(`${response.prayerSlots[i].index}-names`).innerText = `${response.prayerSlots[i].names}`;
         }

@@ -7,9 +7,9 @@ const app = express();
 //Configure the app to use Express for these:
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-const cors = require('cors');
-const { constants } = require('buffer');
-app.use(cors());
+// const cors = require('cors');
+// const { constants } = require('buffer');
+// app.use(cors());
 
 /*Global Variables*/
 //TODO: create a scheduleData object which consists of an array of {'time': '', 'names': []} objects. Then, when a name is submitted, iterate through the array until the item.time matches, and push the new name to the item.names.
@@ -51,15 +51,10 @@ app.get('/retrieve', sendData);
 /*Add Route*/
 app.post('/add', addData);
     function addData (request, response) {
-        console.log(request.body);
-        console.log(scheduleData.prayerSlots.length);
-        for (i=0; i<scheduleData.prayerSlots.length; i++) {
-            console.log(i, scheduleData.prayerSlots[i].index,request.body.prayerTime);
-            
-            if (scheduleData.prayerSlots[i].index == request.body.prayerTime) {
+        for (i=0; i<scheduleData.prayerSlots.length; i++) {            
+            if (scheduleData.prayerSlots[i].index == request.body.index) {
                 const prayerName = `${request.body.firstName} ${request.body.lastInitial}`;
                 scheduleData.prayerSlots[i].names.push(prayerName);
-                console.log(scheduleData.prayerSlots[i].time, prayerName);
             }
         }
         response.send(scheduleData);
