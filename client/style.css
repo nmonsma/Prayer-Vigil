@@ -12,7 +12,7 @@ body {
     margin: 0;
 }
 
-div {
+section {
     width: 80%;
 }
 
@@ -135,7 +135,7 @@ button:active {
         align-items: baseline;
     }
 
-    div {
+    section {
         margin: 20px;
     }
 }
