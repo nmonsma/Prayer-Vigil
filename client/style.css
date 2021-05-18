@@ -41,7 +41,7 @@ header {
     flex-direction: column;
     justify-content: center;    
     align-items: center;
-    margin: 0 15px 0 15px;
+    margin: 0 2vw 0 2vw;
 }
 
 #logo {
@@ -200,5 +200,9 @@ button:active {
 
     .desktop-only {
         display: block;
+    }
+
+    .header-div {
+        margin: 0 20px 0 20px;
     }
 }
