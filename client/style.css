@@ -17,8 +17,6 @@ section {
 }
 
 header {
-    font-family: 'Teko', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    text-transform: uppercase;
     color: rgba(255,255,255,1);
     text-shadow: -1px 1px 0 rgba(0,0,0,0.3) inset;
     text-align: center;
@@ -64,26 +62,30 @@ article {
     font-size: 28px;
 }
 
-h1 {
+h1, h2, h3 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    line-height: 1;
     margin: 0;
     padding: 0;
-    font-size: 3em;
-    line-height: 1;
+    font-weight: normal;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 3em;    
 }
 
 h2 {
-    margin: 0;
     text-align: center;
-}
-
-h3 {
-    line-height: 1;
-    margin: 0;
 }
 
 a, a:hover, a:active {
     text-decoration: none;
     color: inherit;
+}
+
+li {
+    margin-bottom: 15px;
 }
 
 iframe {
