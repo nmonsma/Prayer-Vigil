@@ -12,6 +12,10 @@ body {
     margin: 0;
 }
 
+div {
+    width: 80%;
+}
+
 header {
     font-family: 'Girassol', sans-serif;
     color: rgba(255,255,255,1);
@@ -21,9 +25,25 @@ header {
     box-shadow: -2px 2px 2px 0 black;
     border-radius: 8px;
 
-    width: 400px;
-    margin: 0;
+    padding: 15px;
+    margin: 0 0 20px 0;
+}
 
+article {
+    margin-bottom: 20px;
+    padding: 15px;
+
+    border-radius: 8px;
+    background-color: black;
+    box-shadow: -2px 2px 2px 0 black;
+    
+    color: white;
+    font-family: 'Teko', sans-serif;
+    font-size: 24px;
+}
+
+h2 {
+    text-align: center;
 }
 
 footer {
@@ -38,20 +58,6 @@ footer {
 
     bottom: 0;
     position: fixed;
-}
-
-article {
-    max-width: 400px;
-    margin-top: 20px;
-    padding: 20px;
-
-    border-radius: 8px;
-    background-color: black;
-    box-shadow: -2px 2px 2px 0 black;
-    
-    color: white;
-    font-family: 'Teko', sans-serif;
-    font-size: 24px;
 }
 
 #input {
@@ -72,7 +78,6 @@ ul {
 
 #radio-buttons {
     display: grid;
-    /* width: 400px; */
     grid-template-columns: 30px 115px 1fr;
 }
 
@@ -88,11 +93,20 @@ ul {
     transition: 0.5s all;
 }
 
+.radio-button:hover {
+    box-shadow: 0 0 16px 5px rgba(255,255,255,0.7);
+    cursor: pointer;
+}
+
 .radio-button:checked {
     width: 24px;
     height: 24px;
     margin: 3px;
     border: 8px solid white;
+}
+
+label:hover {
+    cursor: pointer;
 }
 
 button {
@@ -106,6 +120,7 @@ button {
 
 button:hover {
     box-shadow: 0 0 16px 0 rgba(255,255,255,0.7);
+    cursor: pointer;
 
 }
 
@@ -113,8 +128,14 @@ button:active {
     box-shadow: -1px 1px 4px 2px rgba(0,0,0,0.7) inset;
 }
 
-@media (min-width: 800px) {
-    main {
+@media only screen and (min-width: 800px) {
+    body {
         flex-direction: row;
+        justify-content: space-around;
+        align-items: baseline;
+    }
+
+    div {
+        margin: 20px;
     }
 }
