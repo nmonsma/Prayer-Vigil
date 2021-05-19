@@ -135,11 +135,22 @@ ul {
     background-color: black;
     font-size: 18px;
     color: white;
+    padding: 5px;    
     border-radius: 5px;
     border-color: white;
     border-width: 1px;
     border-style: solid;
-    border-image: none;
+}
+
+#radio-instruction {
+    background-color: white;
+    color: black;
+    border-radius: 65px 15px 0 0;
+    width: 90vw;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
 }
 
 #radio-buttons {
@@ -147,7 +158,7 @@ ul {
     width: 90vw;
     grid-template-columns: 30px 125px 1fr;
     background-color: rgba(112,160,192,0.4);
-    border-radius: 5px;
+    border-radius: 0 0 65px 15px;
     padding: 20px 10px
 }
 
@@ -214,7 +225,7 @@ button:active {
         max-width: 500px;
     }
 
-    #radio-buttons {
+    #radio-buttons, #radio-instruction {
         max-width: 800px;
     }
 

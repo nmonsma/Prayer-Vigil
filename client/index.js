@@ -23,7 +23,7 @@ const createSchedule = async ()=> {
         const radioElement = document.getElementById('radio-buttons');
         
         //Set date
-        document.getElementById('prayer-date').setAttribute('value', responseData.date);
+        document.getElementById('prayer-date').innerText = responseData.date;
   
         //Create the sechedule element:
         for (i=0; i<responseData.prayerSlots.length; i++) {
