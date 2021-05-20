@@ -46,7 +46,7 @@ const createDateSelect = async ()=> {
             }
         }
         createSchedule();
-    } catch {
+    } catch(error) {
         console.log("error", error);
     }
 }
