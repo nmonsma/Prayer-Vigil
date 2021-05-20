@@ -21,7 +21,6 @@ app.listen(3000, function () {
 app.get('/retrieve', async (request, response)=> {
     try {
         const file = await readFile('schedule.json');
-        console.log('sending file contents');
         response.send(file);
     } catch (error) {
         console.log(error);
