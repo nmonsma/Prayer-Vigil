@@ -27,14 +27,42 @@ function findDate(scheduleData, date) { //pass an array to the function
     return index;
 }
 
+const createDateSelect = async ()=> {
+    const request = await fetch('/retrieve'); //This get route returns the data
+    try {
+        const responseData = await request.json();
+        const datesList = document.getElementById('prayer-date');
+        
+        //Iterate through the schedule date objects
+        for (i=0; i<responseData.data.length; i++) {
+            const dateIterated = responseData.data[i].date;
+            
+            // if the date of the current list object is in the future as of YESTERDAY, then create the option
+            if (Number(new Date(dateIterated.substring(0,4), dateIterated.substring(5,7)-1, dateIterated.substring(8,10))) > Number(new Date() - 86400000)) {
+                const dateElement = document.createElement('option');
+                dateElement.setAttribute('value', dateIterated);
+                dateElement.innerText = dateIterated;
+                datesList.appendChild(dateElement);
+            }
+        }
+        createSchedule();
+    } catch {
+        console.log("error", error);
+    }
+}
+
+
 const createSchedule = async ()=> {
     const request = await fetch('/retrieve'); //This get route returns the data
     try {
         const responseData = await request.json();
-        const date = document.getElementById('prayer-date').innerText;
+        const date = document.getElementById('prayer-date').value;
         const index = findDate(responseData.data, date);
         globalScheduleObject = responseData.data[index];
         const radioElement = document.getElementById('radio-buttons');
+        
+        //Remove anything in the radio-buttons element
+        radioElement.innerHTML = '';
   
         //Create the sechedule element:
         for (i=0; i<globalScheduleObject.prayerSlots.length; i++) {
@@ -69,37 +97,51 @@ const createSchedule = async ()=> {
 }
 
 function saveSchedule () {
-    let timeIndex = '';
-    const radioButtons = document.getElementsByName('time'); 
-    
-    //Figure out which radio button is checked and record its value in timeIndex    
-    for (i=0; i<radioButtons.length; i++) {
-        if (radioButtons[i].checked) {
-            timeIndex = radioButtons[i].value;
-        }
-    };
-    
-    //Create the object that will be sent to the server
-    const data = {
-        'date': `${document.getElementById('prayer-date').innerText}`,
-        'firstName': `${document.getElementById('first-name').value}`,
-        'lastInitial': `${document.getElementById('last-initial').value.substring(0,1)}`,
-        'index': `${timeIndex}`
-    };
+    //Check if there has been an input
+    if (document.getElementById('first-name').value=='' | document.getElementById('last-initial').value=='') {
+        alert('Please type your first name and last initial');
+    } else {
+        //Disable the submit button to debounce
+        document.getElementById('submit').disabled = true;
 
-    //Send the object to the server, then iterate through the object that is returned to update the names on teh signup
-    postData ('/add', data)
-    .then ((response)=> {
-        const index = findDate(response.data, data.date);
-        const updatedSchedule = response.data[index];
-        for (i=0; i<updatedSchedule.prayerSlots.length; i++) {
-            document.getElementById(`${updatedSchedule.prayerSlots[i].index}-names`).innerText = `${updatedSchedule.prayerSlots[i].names}`;
-        }
-    });
+        let timeIndex = '';
+        const radioButtons = document.getElementsByName('time'); 
+        
+        //Figure out which radio button is checked and record its value in timeIndex    
+        for (i=0; i<radioButtons.length; i++) {
+            if (radioButtons[i].checked) {
+                timeIndex = radioButtons[i].value;
+            }
+        };
+        
+        //Create the object that will be sent to the server
+        const data = {
+            'date': `${document.getElementById('prayer-date').value}`,
+            'firstName': `${document.getElementById('first-name').value}`,
+            'lastInitial': `${document.getElementById('last-initial').value.substring(0,1)}`,
+            'index': `${timeIndex}`
+        };
+
+        //Send the object to the server, then iterate through the object that is returned to update the names on the signup
+        postData ('/add', data)
+        .then ((response)=> {
+            const index = findDate(response.data, data.date);
+            const updatedSchedule = response.data[index];
+            for (i=0; i<updatedSchedule.prayerSlots.length; i++) {
+                document.getElementById(`${updatedSchedule.prayerSlots[i].index}-names`).innerText = `${updatedSchedule.prayerSlots[i].names}`;
+            }
+        });
+
+        //Reenable the submit button after 1 sec
+        setTimeout(()=>{document.getElementById('submit').disabled = false}, 1000);
+    }
 }
 
-//Attach the event listener to the button
+//Attach the event listener to the save button
 document.getElementById('submit').addEventListener('click', saveSchedule);
 
+//Attach the event listener to the date select to update the schedule
+document.getElementById('prayer-date').addEventListener('change', createSchedule);
+
 //Get the object from the server and update the client-side schedule display
-createSchedule();
+createDateSelect();
