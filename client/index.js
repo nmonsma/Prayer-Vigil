@@ -31,6 +31,7 @@ const createDateSelect = async ()=> {
     const request = await fetch('/retrieve'); //This get route returns the data
     try {
         const responseData = await request.json();
+        console.log(request, responseData)
         const datesList = document.getElementById('prayer-date');
         
         //Iterate through the schedule date objects
