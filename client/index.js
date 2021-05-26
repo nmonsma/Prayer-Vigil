@@ -31,13 +31,14 @@ const createDateSelect = async ()=> {
     const request = await fetch('/retrieve'); //This get route returns the data
     try {
         const responseData = await request.json();
-        console.log(request, responseData)
         const datesList = document.getElementById('prayer-date');
         
         //Iterate through the schedule date objects
         for (i=0; i<responseData.data.length; i++) {
             const dateIterated = responseData.data[i].date;
             
+            /*
+            // DISPLAY ONLY FUTURE DATES
             // if the date of the current list object is in the future as of YESTERDAY, then create the option
             if (Number(new Date(dateIterated.substring(0,4), dateIterated.substring(5,7)-1, dateIterated.substring(8,10))) > Number(new Date() - 86400000)) {
                 const dateElement = document.createElement('option');
@@ -45,6 +46,19 @@ const createDateSelect = async ()=> {
                 dateElement.innerText = dateIterated;
                 datesList.appendChild(dateElement);
             }
+            */
+
+            //DISPLAY ONLY ONE DATE
+            //if the date fo teh current list object is 'x', then create the option            
+            if (dateIterated == 'Every Wednesday') {
+                const dateElement = document.createElement('option');
+                dateElement.setAttribute('value', dateIterated);
+                dateElement.innerText = dateIterated;
+                datesList.appendChild(dateElement);
+            }
+
+
+
         }
         createSchedule();
     } catch(error) {
@@ -140,6 +154,9 @@ function saveSchedule () {
 
 //Attach the event listener to the save button
 document.getElementById('submit').addEventListener('click', saveSchedule);
+
+//Prevent Enter from causing the submit event
+document.getElementById('input').addEventListener('submit', (event)=> {event.preventDefault()});
 
 //Attach the event listener to the date select to update the schedule
 document.getElementById('prayer-date').addEventListener('change', createSchedule);
